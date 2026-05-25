@@ -41,6 +41,13 @@ jobs:
       run: |
         docker push harshal001/node-app:v1
 
+    - name: Automatic deployment manifest updates
+      run: |
+        sed -i 's|image: harshal001/node-app:.*|image: harshal001/node-app:v1|g' k8s/deployment.yaml
+
     - name: Simulated Deployment
       run: |
+        echo "kubectl apply -f k8s/deployment.yaml"
+        echo "kubectl apply -f k8s/service.yaml"
+        echo "kubectl apply -f k8s/ingress.yaml"
         echo "Application deployed successfully"
